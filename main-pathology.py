@@ -10,7 +10,7 @@ import pandas as pd
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('./model_insv3-10-0.7923.hdf5')
+  model=tf.keras.models.load_model('./model_insv3-10-0.7923.hdf5', compile=False)
   model.compile(
     loss='categorical_crossentropy',
     optimizer='adam',
