@@ -15,6 +15,7 @@ def load_model():
     loss='categorical_crossentropy',
     optimizer='adam',
     metrics=['accuracy']
+  )
   return model
 with st.spinner('Model is being loaded..'):
   model=load_model()
