@@ -61,7 +61,7 @@ def save_to_excel(name, image_path, prediction, file_path):
     df = pd.DataFrame({'Name': [name], 'Image Path': [image_path], 'Prediction': [prediction]})
     excel_file=pd.ExcelFile(file_path)
     if 'Sheet1' in excel_file.sheet_names:
-      with pd.ExcelWriter(file_path, mode='a',if_sheet_exists="overlay", engine='openpyxl') as writer:
+      with pd.ExcelWriter(file_path, mode='a',if_sheet_exists="overlay") as writer:
           df.to_excel(writer, sheet_name='Sheet1', index=False)
 
 if file is None:
