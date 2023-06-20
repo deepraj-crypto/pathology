@@ -8,3 +8,4 @@ streamlit
 tensorflow
 tensorflow_intel
 pyparsing
+gspread
