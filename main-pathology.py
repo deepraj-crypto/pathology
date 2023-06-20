@@ -5,8 +5,16 @@ import cv2
 from PIL import Image, ImageOps
 import numpy as np
 import pandas as pd
+from google.oauth2 import service_account
+from gsheetsdb import connect
 
-
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+    ],
+)
+conn = connect(credentials=credentials)
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -73,5 +81,6 @@ else:
         if patient == '':
             st.error('Please enter a patient name')
         else:
-            save_to_excel(patient, file.name, string, './predictions.xlsx')
+	    sheet_url = st.secrets["private_gsheets_url"]
+            save_to_excel(patient, file.name, string, sheet_url)
             st.success('Data saved to Excel')

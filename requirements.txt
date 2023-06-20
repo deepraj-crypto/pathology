@@ -6,3 +6,4 @@ streamlit
 tensorflow
 tensorflow_intel
 protobuf==3.20
+gsheetsdb
