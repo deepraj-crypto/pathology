@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from google.oauth2 import service_account
 from gsheetsdb import connect
+import gspread
 
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
@@ -58,6 +59,13 @@ def import_and_predict(image_data, model):
         return prediction
 
 def save_to_excel(name, image_path, prediction, file_path):
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=[
+            "https://www.googleapis.com/auth/spreadsheets",
+        ],
+    )
+    conn = connect(credentials=credentials)
     df = pd.DataFrame({'Name': [name], 'Image Path': [image_path], 'Prediction': [prediction]})
     excel_file=pd.ExcelFile(file_path)
     if 'Sheet1' in excel_file.sheet_names:
