@@ -40,7 +40,7 @@ with col1:
   file = st.file_uploader("Please upload an brain scan file", type=["jpg", "png"])
 with col2:
   patient=st.text_input('Patient ID:')
-  doctor_prediction=st.text_input('Doctor's Prediction:')
+  doctor_prediction=st.text_input("Doctor's Prediction:")
 import cv2
 from PIL import Image, ImageOps
 import numpy as np
