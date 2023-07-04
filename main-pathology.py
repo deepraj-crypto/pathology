@@ -88,6 +88,8 @@ else:
     score = tf.nn.softmax(predictions[0])
     # st.write(predictions)
     # st.write(score)
+    if np.max(score) < 0.50:
+        string = "This is not an image of pathology, please enter a valid image"
     string="This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score)], 100 * np.max(score))
     st.success(string)
 
@@ -96,6 +98,8 @@ else:
             st.error('Please enter a patient name')
         elif doctor_prediction == '':
             st.error('Please enter your prediction')
+        elif np.max(score) < 0.50:
+            st.error('This is not an image of pathology, please enter a valid image')
         else:
             sheet_url = st.secrets["private_gsheets_url"]
             save_to_excel(patient, file.name, string, sheet_url, doctor_prediction)
