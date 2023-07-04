@@ -94,6 +94,8 @@ else:
     if st.button('Save to Excel'):
         if patient == '':
             st.error('Please enter a patient name')
+        elif doctor_prediction == '':
+            st.error('Please enter your prediction')
         else:
             sheet_url = st.secrets["private_gsheets_url"]
             save_to_excel(patient, file.name, string, sheet_url, doctor_prediction)
