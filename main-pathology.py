@@ -39,7 +39,8 @@ col1,col2=st.columns(2)
 with col1:
   file = st.file_uploader("Please upload an brain scan file", type=["jpg", "png"])
 with col2:
-  patient=st.text_input('Patient Full name:')
+  patient=st.text_input('Patient ID:')
+  doctor_prediction=st.text_input('Doctor's Prediction:')
 import cv2
 from PIL import Image, ImageOps
 import numpy as np
@@ -58,7 +59,7 @@ def import_and_predict(image_data, model):
 
         return prediction
 
-def save_to_excel(name, image_path, prediction, file_path):
+def save_to_excel(name, image_path, prediction, file_path, doctor_prediction):
     credentials = service_account.Credentials.from_service_account_info(
         st.secrets["gcp_service_account"],
         scopes=[
@@ -69,7 +70,7 @@ def save_to_excel(name, image_path, prediction, file_path):
     client = gspread.authorize(credentials)
     sheet = client.open_by_url(file_path)
     worksheet = sheet.get_worksheet(0)
-    new_row = [name, image_path, prediction]
+    new_row = [name, image_path, prediction, doctor_prediction]
     worksheet.append_row(new_row)
     # df = pd.DataFrame({'Name': [name], 'Image Path': [image_path], 'Prediction': [prediction]})
     # excel_file=pd.ExcelFile(file_path)
@@ -95,5 +96,5 @@ else:
             st.error('Please enter a patient name')
         else:
             sheet_url = st.secrets["private_gsheets_url"]
-            save_to_excel(patient, file.name, string, sheet_url)
+            save_to_excel(patient, file.name, string, sheet_url, doctor_prediction)
             st.success('Data saved to Excel')
