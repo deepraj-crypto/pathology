@@ -90,7 +90,8 @@ else:
     # st.write(score)
     if np.max(score) < 0.60:
         string = "This is not an image of pathology, please enter a valid image"
-    string="This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score)], 100 * np.max(score))
+    else:
+        string="This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score)], 100 * np.max(score))
     st.success(string)
 
     if st.button('Save to Excel'):
@@ -98,7 +99,7 @@ else:
             st.error('Please enter a patient name')
         elif doctor_prediction == '':
             st.error('Please enter your prediction')
-        elif np.max(score) < 0.50:
+        elif np.max(score) < 0.60:
             st.error('This is not an image of pathology, please enter a valid image')
         else:
             sheet_url = st.secrets["private_gsheets_url"]
