@@ -90,7 +90,7 @@ else:
     # st.write(score)
     if np.max(score) < 0.60:
         string = "This is not an image of pathology, please enter a valid image"
-    else:
+    elif np.max(score) >= 0.60:
         string="This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score)], 100 * np.max(score))
     st.success(string)
 
