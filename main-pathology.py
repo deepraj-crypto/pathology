@@ -85,7 +85,7 @@ else:
     st.image(image, use_column_width=True)
     predictions = import_and_predict(image, model)
     class_names=['HP', 'NORM', 'TA.HG']
-    score = tf.nn.softmax(predictions[0])
+    score = tf.nn.softmax(np.max(predictions))
     # st.write(predictions)
     # st.write(score)
     if np.max(score) < 0.50:
