@@ -30,7 +30,7 @@ with st.spinner('Model is being loaded..'):
   model=load_model()
 
 st.write("""
-         # Cancer Classification
+         # Colorectal Polyps Classification
          """
          )
 
