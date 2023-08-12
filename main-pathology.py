@@ -19,7 +19,7 @@ conn = connect(credentials=credentials)
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('./model_insv3-03-0.7590.hdf5', compile=False)
+  model=tf.keras.models.load_model('./model_insv3-13-0.7590.hdf5', compile=False)
   model.compile(
     loss='categorical_crossentropy',
     optimizer='adam',
