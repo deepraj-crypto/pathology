@@ -19,7 +19,7 @@ conn = connect(credentials=credentials)
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('./model_insv3-10-0.7923.hdf5', compile=False)
+  model=tf.keras.models.load_model('./model_insv3-03-0.7590.hdf5', compile=False)
   model.compile(
     loss='categorical_crossentropy',
     optimizer='adam',
@@ -88,9 +88,9 @@ else:
     score = tf.nn.softmax(predictions[0])
     # st.write(predictions)
     # st.write(score)
-    if np.max(score) < 0.60:
+    if np.max(score) < 0.50:
         string = "This is not an image of pathology, please enter a valid image"
-    elif np.max(score) >= 0.60:
+    elif np.max(score) >= 0.50:
         string="This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score)], 100 * np.max(score))
     st.success(string)
 
@@ -99,7 +99,7 @@ else:
             st.error('Please enter a patient name')
         elif doctor_prediction == '':
             st.error('Please enter your prediction')
-        elif np.max(score) < 0.60:
+        elif np.max(score) < 0.50:
             st.error('This is not an image of pathology, please enter a valid image')
         else:
             sheet_url = st.secrets["private_gsheets_url"]
